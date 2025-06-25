@@ -1,11 +1,8 @@
-name = "ai-cv-optimizer"
-account_id = "Grant.campbell@live.com"
-main = "dist/index.js"
+name = "frontend-worker"
+type = "javascript"
+main = "worker.js"
 compatibility_date = "2025-06-25"
-workers_dev = true
-route = ""
-zone_id = ""
 
-[build]
-command = "npm run build"
-upload_format = "modules"
+[assets]
+binding = "ASSETS"
+directory = "dist"
