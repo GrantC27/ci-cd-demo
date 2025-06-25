@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
 import { XCircleIcon, CreditCardIcon, LockClosedIcon, ExternalLinkIcon as StripeIcon } from './Icons'; // Renamed ExternalLinkIcon to StripeIcon for clarity
-import { CREDIT_PACKAGES, LAMBDA_CREATE_CHECKOUT_SESSION_ENDPOINT } from '../constants';
+import { CREDIT_PACKAGES, LAMBDA_CREATE_CHECKOUT_SESSION_ENDPOINT, LAMBDA_DECREMENT_CREDITS_ENDPOINT } from '../constants';
 import firebase from 'firebase/compat/app'; // For firebase.User type
 
 // Helper LoadingSpinner (can be moved to a shared location if used elsewhere)

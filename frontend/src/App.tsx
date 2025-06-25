@@ -19,7 +19,8 @@ import {
   CREDIT_COST_OPTIMIZE,
   CREDIT_COST_SIMULATE,
   LAMBDA_SIGNUP_ENDPOINT,
-  LAMBDA_GET_PROFILE_ENDPOINT
+  LAMBDA_GET_PROFILE_ENDPOINT,
+  LAMBDA_DECREMENT_CREDITS_ENDPOINT
 } from './constants';
 
 import firebase from 'firebase/compat/app'; // Import compat version of firebase
@@ -344,7 +345,7 @@ const App: React.FC = () => {
   }, []);
 
 
-  const checkCreditsAndProceed = (cost: number, actionName: string, action: () => Promise<void>) => {
+  const checkCreditsAndProceed = async (cost: number, actionName: string, action: () => Promise<void>) => {
     setGeneralError(null); 
     setAuthActionMessage(null); 
 
@@ -372,17 +373,30 @@ const App: React.FC = () => {
       return;
     }
 
-    action().then(() => {
-      const appUserAfterAction = currentUserRef.current; 
-      if (appUserAfterAction) { 
-        const updatedUser = { ...appUserAfterAction, credits: appUserAfterAction.credits - cost };
-        updateUserAndStorage(updatedUser);
-        console.log(`${cost} credit(s) used for ${actionName}. Remaining: ${updatedUser.credits}. (Simulated backend update)`);
+    // Call backend to decrement credits
+    try {
+      const idToken = await currentFbUser.getIdToken();
+      const response = await fetch(LAMBDA_DECREMENT_CREDITS_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${idToken}`,
+        },
+        body: JSON.stringify({ userId: currentAppUser.userId, cost }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ message: 'Failed to decrement credits.' }));
+        throw new Error(errorData.message || 'Failed to decrement credits.');
       }
-    }).catch(err => {
+      const data = await response.json();
+      if (typeof data.newCredits !== 'number') throw new Error('Invalid response from server.');
+      updateUserAndStorage({ ...currentAppUser, credits: data.newCredits });
+      await action();
+      console.log(`${cost} credit(s) used for ${actionName}. Remaining: ${data.newCredits}. (Backend update)`);
+    } catch (err: any) {
       console.error(`Error after credit check during ${actionName}:`, err);
       setGeneralError(err.message || `An unexpected error occurred while ${actionName.toLowerCase()}.`);
-    });
+    }
   };
 
 

@@ -1,33 +1,6 @@
 // index.mjs
 import admin from 'firebase-admin';
 
-// import { readFileSync } from 'fs';
-// import { resolve } from 'path'; // Optional: for constructing absolute paths
-
-// let serviceAccountCredentialsFromFile;
-// try {
-//   // Assuming 'serviceAccountKey.json' is in the same directory as your .mjs file
-//   // For a more robust path, especially in Lambdas, construct it carefully:
-//   // const filePath = resolve(__dirname, 'serviceAccountKey.json'); // if __dirname is available (commonjs context)
-//   // Or if your .mjs file is at root of project and serviceAccountKey.json is also at root:
-//   const filePath = './serviceAccountKey.json'; 
-
-//   const fileContent = readFileSync(filePath, 'utf8'); // 'utf8' is the typical encoding for text/JSON
-//   serviceAccountCredentialsFromFile = JSON.parse(fileContent);
-
-//   console.log('Successfully read and parsed JSON data');
-//   // Now you can use jsonData, for example, to initialize Firebase Admin SDK:
-//   // admin.initializeApp({
-//   //   credential: admin.credential.cert(jsonData)
-//   // });
-
-// } catch (error) {
-//   console.error('Failed to read or parse serviceAccountKey.json:', error);
-//   // Handle the error appropriately (e.g., exit the process, throw)
-// }
-
-// const serviceAccount = serviceAccountCredentialsFromFile;
-
 //get GOOGLE_APPLICATION_CREDENTIALS from environment variable
 const serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 

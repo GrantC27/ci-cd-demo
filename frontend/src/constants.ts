@@ -8,7 +8,7 @@ export const APP_TITLE = "ATS CV Optimizer";
 export const LOCAL_STORAGE_USER_KEY = 'atsOptimizerUser';
 export const INITIAL_SIGNUP_CREDITS = 5; // Matches Lambda's default
 export const CREDIT_COST_OPTIMIZE = 1;
-export const CREDIT_COST_SIMULATE = 1;
+export const CREDIT_COST_SIMULATE = 2;
 
 export const CREDIT_PACKAGES = [
   { id: 'starter', name: 'Starter Pack', credits: 10, price: '$5', priceId: 'price_1RcNkyPJEHZKPBRwch4OQXvC' }, // Add your Stripe Price ID
@@ -40,3 +40,8 @@ export const LAMBDA_STRIPE_WEBHOOK_ENDPOINT: string = 'YOUR_LAMBDA_API_GATEWAY_E
 // Expects: Authorization header with Firebase ID token. Body: { packageId: string }
 // Returns: { checkoutUrl: string }
 export const LAMBDA_CREATE_CHECKOUT_SESSION_ENDPOINT: string = 'https://gycm1mkb1c.execute-api.eu-north-1.amazonaws.com/stripe-create-checkout';
+
+// Endpoint to decrement user credits.
+// Expects: Authorization header with Firebase ID token. Body: { amount: number }
+// Returns: { success: boolean, newCreditBalance: number }
+export const LAMBDA_DECREMENT_CREDITS_ENDPOINT = 'https://gycm1mkb1c.execute-api.eu-north-1.amazonaws.com/decrease-credits';
