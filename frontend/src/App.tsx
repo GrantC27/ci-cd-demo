@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useEffect, FormEvent, useRef } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
@@ -233,6 +232,12 @@ const App: React.FC = () => {
       await firebaseAuth.signOut();
       setAuthActionMessage("You have been logged out.");
       setTimeout(() => setAuthActionMessage(null), 3000);
+      // Clear all user data on logout
+      setSelectedCvFile(null);
+      setCvText('');
+      setJobDescriptionText('');
+      setTransformedCvText('');
+      setAtsSimulationResults(null);
     } catch (err: any) {
       console.error("Logout error", err);
       setGeneralError(err.message || "Logout failed");
