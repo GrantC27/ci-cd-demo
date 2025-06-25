@@ -1,0 +1,6 @@
+{
+  "name": "ATS CV Optimizer",
+  "description": "An application that uses Gemini AI to transform your CV to better match a job description, helping you beat Applicant Tracking Systems (ATS).",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
