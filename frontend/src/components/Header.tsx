@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { APP_TITLE } from '../constants';
-import { BriefcaseIcon, UserCircleIcon, CreditCardIcon, LogoutIcon, ShieldExclamationIcon } from './Icons'; // Added ShieldExclamationIcon
+import { BriefcaseIcon, UserCircleIcon, CreditCardIcon, LogoutIcon, ShieldExclamationIcon, LogoIcon } from './Icons'; // Added LogoIcon
 
 interface CurrentUser {
   email: string;
@@ -31,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="bg-primary shadow-lg">
       <div className="container mx-auto px-4 py-5 flex flex-wrap items-center justify-between">
         <div className="flex items-center">
-          <BriefcaseIcon className="h-10 w-10 text-white mr-3"/>
+          <LogoIcon className="mr-3" />
           <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">{APP_TITLE}</h1>
         </div>
         <div className="flex items-center space-x-2 md:space-x-3 mt-3 md:mt-0">
