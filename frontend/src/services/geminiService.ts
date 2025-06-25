@@ -10,7 +10,7 @@ if (!API_KEY) {
 const ai = new GoogleGenAI({ apiKey: API_KEY });
 
 export const transformCvWithGemini = async (cv: string, jobDesc: string): Promise<string> => {
-  const response = await fetch("/api/transform-cv", {
+  const response = await fetch("/transform-cv", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ cv, jobDesc, mode: "transform" }),
@@ -21,7 +21,7 @@ export const transformCvWithGemini = async (cv: string, jobDesc: string): Promis
 };
 
 export const simulateAtsScreeningWithGemini = async (cv: string, jobDesc: string): Promise<string> => {
-  const response = await fetch("/api/transform-cv", {
+  const response = await fetch("/transform-cv", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ cv, jobDesc, mode: "ats" }),
