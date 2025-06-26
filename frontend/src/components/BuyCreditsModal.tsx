@@ -173,7 +173,8 @@ export const BuyCreditsModal: React.FC<BuyCreditsModalProps> = ({
                     <p className="text-sm text-neutral-dark">Credits</p>
                     <p className="text-xs text-neutral-dark mt-1">Price: {pkg.price}</p>
                     </button>
-                ))}
+                ))
+                }
                 </div>
             </>
         )}

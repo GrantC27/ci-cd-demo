@@ -11,9 +11,9 @@ export const CREDIT_COST_OPTIMIZE = 1;
 export const CREDIT_COST_SIMULATE = 1;
 
 export const CREDIT_PACKAGES = [
-  { id: 'starter', name: 'Starter Pack', credits: 10, price: '£5', priceId: 'price_1RcNkyPJEHZKPBRwch4OQXvC' }, // Add your Stripe Price ID
-  { id: 'plus', name: 'Plus Pack', credits: 25, price: '£10', priceId: 'price_1RcNkbPJEHZKPBRwgVf2ySOm' },       // Add your Stripe Price ID
-  { id: 'pro', name: 'Pro Pack', credits: 50, price: '£18', priceId: 'price_1RcNjyPJEHZKPBRwT75zYgaT' },         // Add your Stripe Price ID
+  { id: 'starter', name: 'Starter Pack', credits: 10, price: '£5', priceId: 'price_1ReA78A08ZFUzEtbIpN6xhU1' }, // Add your Stripe Price ID
+  { id: 'plus', name: 'Plus Pack', credits: 25, price: '£10', priceId: 'price_1ReA78A08ZFUzEtboBNx0omR' },       // Add your Stripe Price ID
+  { id: 'pro', name: 'Pro Pack', credits: 50, price: '£18', priceId: 'price_1ReA77A08ZFUzEtb9kVQ1n7t' },         // Add your Stripe Price ID
 ];
 
 // AWS Lambda API Gateway Endpoints
