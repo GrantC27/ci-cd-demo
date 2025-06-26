@@ -32,11 +32,12 @@ export const LAMBDA_SIGNUP_ENDPOINT: string = 'https://gycm1mkb1c.execute-api.eu
 // export const LAMBDA_GET_PROFILE_ENDPOINT: string = 'YOUR_LAMBDA_API_GATEWAY_ENDPOINT_URL_FOR_GET_PROFILE_HERE';
 export const LAMBDA_GET_PROFILE_ENDPOINT: string = 'https://gycm1mkb1c.execute-api.eu-north-1.amazonaws.com/get-profile';
 
-// Endpoint to update user credits (conceptual, for future use via Stripe Webhook).
-// This endpoint would be called by Stripe, not directly by the frontend for credit purchase.
-export const LAMBDA_STRIPE_WEBHOOK_ENDPOINT: string = 'YOUR_LAMBDA_API_GATEWAY_ENDPOINT_URL_FOR_STRIPE_WEBHOOKS_HERE';
-
 // Endpoint for the frontend to call to create a Stripe Checkout session.
 // Expects: Authorization header with Firebase ID token. Body: { packageId: string }
 // Returns: { checkoutUrl: string }
 export const LAMBDA_CREATE_CHECKOUT_SESSION_ENDPOINT: string = 'https://gycm1mkb1c.execute-api.eu-north-1.amazonaws.com/stripe-create-checkout';
+
+// Endpoint to decrement user credits.
+// Expects: Authorization header with Firebase ID token. Body: { amount: number }
+// Returns: { success: boolean, newCreditBalance: number }
+export const LAMBDA_DECREMENT_CREDITS_ENDPOINT = 'https://gycm1mkb1c.execute-api.eu-north-1.amazonaws.com/decrease-credits';
