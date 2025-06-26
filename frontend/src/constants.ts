@@ -8,12 +8,12 @@ export const APP_TITLE = "ATS CV Optimizer";
 export const LOCAL_STORAGE_USER_KEY = 'atsOptimizerUser';
 export const INITIAL_SIGNUP_CREDITS = 5; // Matches Lambda's default
 export const CREDIT_COST_OPTIMIZE = 1;
-export const CREDIT_COST_SIMULATE = 2;
+export const CREDIT_COST_SIMULATE = 1;
 
 export const CREDIT_PACKAGES = [
-  { id: 'starter', name: 'Starter Pack', credits: 10, price: '$5', priceId: 'price_1RcNkyPJEHZKPBRwch4OQXvC' }, // Add your Stripe Price ID
-  { id: 'plus', name: 'Plus Pack', credits: 25, price: '$10', priceId: 'price_1RcNkbPJEHZKPBRwgVf2ySOm' },       // Add your Stripe Price ID
-  { id: 'pro', name: 'Pro Pack', credits: 50, price: '$18', priceId: 'price_1RcNjyPJEHZKPBRwT75zYgaT' },         // Add your Stripe Price ID
+  { id: 'starter', name: 'Starter Pack', credits: 10, price: '£5', priceId: 'price_1ReA78A08ZFUzEtbIpN6xhU1' }, // Add your Stripe Price ID
+  { id: 'plus', name: 'Plus Pack', credits: 25, price: '£10', priceId: 'price_1ReA78A08ZFUzEtboBNx0omR' },       // Add your Stripe Price ID
+  { id: 'pro', name: 'Pro Pack', credits: 50, price: '£18', priceId: 'price_1ReA77A08ZFUzEtb9kVQ1n7t' },         // Add your Stripe Price ID
 ];
 
 // AWS Lambda API Gateway Endpoints
@@ -40,8 +40,3 @@ export const LAMBDA_STRIPE_WEBHOOK_ENDPOINT: string = 'YOUR_LAMBDA_API_GATEWAY_E
 // Expects: Authorization header with Firebase ID token. Body: { packageId: string }
 // Returns: { checkoutUrl: string }
 export const LAMBDA_CREATE_CHECKOUT_SESSION_ENDPOINT: string = 'https://gycm1mkb1c.execute-api.eu-north-1.amazonaws.com/stripe-create-checkout';
-
-// Endpoint to decrement user credits.
-// Expects: Authorization header with Firebase ID token. Body: { amount: number }
-// Returns: { success: boolean, newCreditBalance: number }
-export const LAMBDA_DECREMENT_CREDITS_ENDPOINT = 'https://gycm1mkb1c.execute-api.eu-north-1.amazonaws.com/decrease-credits';
