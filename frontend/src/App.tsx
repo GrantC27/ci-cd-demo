@@ -8,7 +8,7 @@ import { Button as StyledButton } from './components/Button';
 import { LoadingSpinner } from './components/LoadingSpinner';
 import { Alert } from './components/Alert';
 import { AlertType } from './types';
-import { transformCvWithGemini, simulateAtsScreeningWithGemini } from './services/geminiService';
+import { transformCvWithGemini, simulateAtsScreeningWithGemini, convertCvToDocxWithGemini } from './services/geminiService';
 import { InfoIcon, LightBulbIcon, MagnifyingGlassCircleIcon, UserCircleIcon, ExclamationIcon } from './components/Icons';
 import { AtsReportDisplay } from './components/AtsReportDisplay';
 import { AuthModal } from './components/AuthModal';
@@ -76,7 +76,34 @@ const App: React.FC = () => {
    useEffect(() => {
     firebaseUserRef.current = firebaseUser;
   }, [firebaseUser]);
-
+    // Download ATS-friendly DOCX logic
+  const [isDownloadingDocx, setIsDownloadingDocx] = useState(false);
+  const handleDownloadDocx = async () => {
+    if (!transformedCvText || !transformedCvText.trim() || !jobDescriptionText || !jobDescriptionText.trim()) {
+      setGeneralError('You must optimize your CV first before downloading as DOCX.');
+      return;
+    }
+    setIsDownloadingDocx(true);
+    setGeneralError(null);
+    try {
+      const blob = await convertCvToDocxWithGemini(transformedCvText, jobDescriptionText);
+      // Download the blob as a file
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'ATS-Optimized-CV.docx';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      }, 100);
+    } catch (err: any) {
+      setGeneralError(err.message || 'Failed to download DOCX.');
+    } finally {
+      setIsDownloadingDocx(false);
+    }
+  };
   // Dynamic import and setup for PDF.js worker
   useEffect(() => {
     const setupPdfJs = async () => {
@@ -620,7 +647,20 @@ const App: React.FC = () => {
           )}
 
           {transformedCvText && !isOptimizingCv && !isSimulatingAts && (
-            <TransformedCVDisplay cvText={transformedCvText} />
+            <>
+              <TransformedCVDisplay cvText={transformedCvText} />
+              <div className="flex justify-center mt-6">
+                <StyledButton
+                  onClick={handleDownloadDocx}
+                  disabled={isDownloadingDocx}
+                  className="bg-primary-dark hover:bg-primary focus:ring-primary text-white"
+                  aria-label="Download ATS-friendly DOCX"
+                  title="Download your optimized CV as an ATS-friendly DOCX file"
+                >
+                  {isDownloadingDocx ? <><LoadingSpinner className="h-5 w-5 mr-2" /> Preparing DOCX...</> : <>Download ATS-friendly DOCX</>}
+                </StyledButton>
+              </div>
+            </>
           )}
 
           {atsSimulationResults && !isSimulatingAts && (

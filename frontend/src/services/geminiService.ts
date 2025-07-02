@@ -1,3 +1,17 @@
+// Request Gemini to convert the optimized CV to an ATS-friendly DOCX and return a Blob
+export const convertCvToDocxWithGemini = async (cv: string, jobDesc: string): Promise<Blob> => {
+  const response = await fetch("/api/gemini/convert-docx", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ cv, jobDesc })
+  });
+  if (!response.ok) {
+    const errorText = await response.text().catch(() => "");
+    throw new Error(errorText || "Failed to generate DOCX file. Please try again later.");
+  }
+  // Expecting a DOCX file as a Blob
+  return await response.blob();
+};
 export const transformCvWithGemini = async (cv: string, jobDesc: string): Promise<string> => {
   const response = await fetch("/api/gemini/transform", {
     method: "POST",
