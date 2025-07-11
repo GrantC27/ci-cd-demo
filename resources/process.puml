@@ -1,0 +1,78 @@
+@startuml Pipeline Architecture
+
+!define AWSPUML https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v15.0/dist
+!includeurl AWSPUML/AWSCommon.puml
+!includeurl AWSPUML/Compute/Lambda.puml
+!includeurl AWSPUML/Storage/SimpleStorageService.puml
+!theme cerulean
+
+skinparam backgroundColor #FFFFFF
+skinparam componentStyle rectangle
+
+package "Source Control" {
+    [GitHub Repository] as github
+}
+
+package "Cloudflare" {
+    [Cloudflare Pages] as pages
+    [Cloudflare Workers] as workers
+}
+
+package "Frontend" {
+    [Web Application] as webapp
+}
+
+package "AWS Lambda Services" {
+    package "Firebase Integration" {
+        [User Authentication\nLambda] as auth_lambda
+        [User Data Handler\nLambda] as data_lambda
+        [Firestore Operations\nLambda] as firestore_lambda
+    }
+    
+    package "Stripe Integration" {
+        [Payment Processing\nLambda] as payment_lambda
+        [Webhook Handler\nLambda] as webhook_lambda
+        [Subscription Management\nLambda] as subscription_lambda
+    }
+}
+
+package "External Services" {
+    [Firebase Auth] as firebase_auth
+    [Firestore Database] as firestore
+    [Stripe API] as stripe
+}
+
+' Build and deployment flow
+github --> workers : "Push triggers build"
+workers --> pages : "Builds and deploys"
+pages --> webapp : "Serves static content"
+
+' API connections
+webapp --> auth_lambda : "Authentication requests"
+webapp --> data_lambda : "User data operations"
+webapp --> firestore_lambda : "Database operations"
+webapp --> payment_lambda : "Payment processing"
+webapp --> webhook_lambda : "Payment webhooks"
+webapp --> subscription_lambda : "Subscription management"
+
+' External service connections
+auth_lambda --> firebase_auth : "User authentication"
+data_lambda --> firestore : "User data storage"
+firestore_lambda --> firestore : "Database operations"
+
+payment_lambda --> stripe : "Process payments"
+webhook_lambda --> stripe : "Handle webhooks"
+subscription_lambda --> stripe : "Manage subscriptions"
+
+note right of workers
+  Automatically builds on
+  GitHub repository changes
+end note
+
+note bottom of webapp
+  Static site hosted on
+  Cloudflare Pages with
+  API calls to Lambda functions
+end note
+
+@enduml

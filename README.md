@@ -12,11 +12,21 @@ This repository is a monorepo for the AI CV Optimizer project, designed to showc
 ## Project Structure
 
 - **frontend/**: React + TypeScript web application, deployed to Cloudflare Pages.
+  - **src/**: Main application source code (components, services, types, etc.)
+  - **public/**, **dist/**: Build and static assets
 - **firestore-lambda-get-profile/**: Lambda function for retrieving user profiles from Firestore.
 - **firestore-lamda-user-service/**: Lambda function for user management and Firestore integration.
+- **firestore-lambda-decrement-credits/**: Lambda function for atomic credit decrement (used for credit deduction on actions).
 - **stripe-create-checkout/**: Lambda function for creating Stripe checkout sessions.
 - **stripe-webhook-processor/**: Lambda function for processing Stripe webhook events.
 - **stripe-webhook-receiver/**: Lambda function for receiving Stripe webhook events.
+- **text/**: (Optional) Contains sample or template files for testing or demo purposes.
+- **README.md**: Project documentation (this file).
+
+## Pipeline Architecture
+
+![Pipeline Diagram](./resources/pipeline.png)
+
 
 ## Getting Started
 
