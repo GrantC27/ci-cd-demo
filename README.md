@@ -1,6 +1,6 @@
-# AI CV Optimizer
+# CI/CD Demo
 
-This repository is a monorepo for the AI CV Optimizer project, designed to showcase advanced web integrations and CI/CD pipeline experience. The project features a modern frontend hosted on Cloudflare Pages, a suite of backend serverless Lambda services, and secure user data management with Firestore and Firebase Authentication.
+This repository is a monorepo for the CI/CD Demo project, designed to showcase advanced web integrations and CI/CD pipeline experience. The project features a modern frontend hosted on Cloudflare Pages, a suite of backend serverless Lambda services, and secure user data management with Firestore and Firebase Authentication.
 
 ## Project Overview
 
@@ -39,8 +39,8 @@ This repository is a monorepo for the AI CV Optimizer project, designed to showc
 ### Setup
 1. Clone the repository:
    ```sh
-   git clone https://github.com/GrantC27/AI-CV-Optimizer.git
-   cd AI-CV-Optimizer
+   git clone https://github.com/GrantC27/ci-cd-demo.git
+   cd ci-cd-demo
    ```
 2. Install dependencies for each sub-project:
    ```sh

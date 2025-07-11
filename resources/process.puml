@@ -1,4 +1,4 @@
-@startuml Pipeline Architecture
+@startuml CI/CD Demo Pipeline Architecture
 
 !define AWSPUML https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v15.0/dist
 !includeurl AWSPUML/AWSCommon.puml
